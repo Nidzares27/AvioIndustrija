@@ -1,0 +1,152 @@
+﻿@using AvioIndustrija.ViewModels.Servis;
+
+@model EditServisViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Putnik</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" id="ServisForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ServisId" />
+            <input type="hidden" asp-for="AvionId" />
+            <input type="hidden" asp-for="DatumServisa" />
+
+            <div class="form-group">
+                <label asp-for="Komentar" class="control-label"></label>
+                <textarea asp-for="Komentar" class="form-control"></textarea>
+                <span asp-validation-for="Komentar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label><br />
+                <select asp-for="Status" class="form-control">
+                    <option value="Neizvrsen">Neizvrsen</option>
+                    <option value="Zavrsen">Zavrsen</option>
+                    <option value="Nezavrsen">Nezavrsen</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SviDjelovi" class="control-label"></label>
+                <select asp-for="SviDjelovi" class="form-control" asp-items="@(new SelectList(Model.SviDjelovi, "SerijskiBroj", "Naziv"))" id="izaberiDio">
+                    <option value="">-- Select a Part --</option>
+                </select>
+                <span asp-validation-for="SviDjelovi" class="text-danger"></span>
+            </div>
+            <button type="button" onclick="addPart()">Dodaj Dio</button>
+
+            <h2>Izabrani Djelovi</h2>
+            @if (Model.IzabraniDjelovi != null)
+            {
+                <ul id="ListaIzabranihDjelova">
+                    @foreach (var part in Model.IzabraniDjelovi)
+                    {
+                        <li data-id="@part.SerijskiBroj" data-quantity="@part.Kolicina">
+                            @part.Naziv
+                            <button type="button" onclick="increaseQuantity(@part.SerijskiBroj)" style="margin:5px">+</button>
+                            <span id="quantity_@part.SerijskiBroj">@part.Kolicina</span>
+                            <button type="button" onclick="decreaseQuantity(@part.SerijskiBroj)" style="margin:5px">-</button>
+                            <button type="button" onclick="removePart('@part.SerijskiBroj')" style="margin:5px">Remove</button>
+                            <input type="hidden" name="IzabraniDjeloviId" value="@part.SerijskiBroj" id="hiddenPartId_@part.SerijskiBroj" />
+                            <input type="hidden" name="SelectedPartQuantities" value="@part.Kolicina" id="hiddenQuantity_@part.SerijskiBroj" />
+                        </li>
+                    }
+                </ul>
+            }
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        function addPart() {
+            var partSelect = document.getElementById("izaberiDio");
+            var selectedPartId = partSelect.value;
+            var selectedPartText = partSelect.options[partSelect.selectedIndex].text;
+
+            if (selectedPartId) {
+                var selectedPartsList = document.getElementById("ListaIzabranihDjelova");
+
+                // Check if the part is already in the list
+                var existingParts = selectedPartsList.querySelectorAll("li[data-id='" + selectedPartId + "']");
+                if (existingParts.length === 0) {
+                    // Add part to the list
+                    var newPart = document.createElement("li");
+                    newPart.setAttribute("data-id", selectedPartId);
+                    newPart.setAttribute("data-quantity", 1);
+                    newPart.innerHTML = selectedPartText + ' <button type="button" onclick="increaseQuantity(' + selectedPartId + ')">+</button> <span id="quantity_' + selectedPartId + '">1</span> <button type="button" onclick="decreaseQuantity(' + selectedPartId + ')">-</button> <button type="button" onclick="removePart(' + selectedPartId + ')">Remove</button>';
+
+                    selectedPartsList.appendChild(newPart);
+
+                    // Add hidden input to the form
+                    var hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = "IzabraniDjeloviId";
+                    hiddenInput.value = selectedPartId;
+                    hiddenInput.id = "hiddenPartId_" + selectedPartId;
+
+                    newPart.appendChild(hiddenInput);
+
+                    var hiddenInputQuantity = document.createElement("input");
+                    hiddenInputQuantity.type = "hidden";
+                    hiddenInputQuantity.name = "SelectedPartQuantities";
+                    hiddenInputQuantity.value = 1;
+                    hiddenInputQuantity.id = "hiddenQuantity_" + selectedPartId;
+
+                    newPart.appendChild(hiddenInputQuantity);
+                }
+            }
+        }
+
+        function increaseQuantity(partId) {
+            var quantitySpan = document.getElementById("quantity_" + partId);
+            var quantity = parseInt(quantitySpan.textContent) + 1;
+            quantitySpan.textContent = quantity;
+
+            var hiddenQuantityInput = document.getElementById("hiddenQuantity_" + partId);
+            hiddenQuantityInput.value = quantity;
+        }
+
+        function decreaseQuantity(partId) {
+            var quantitySpan = document.getElementById("quantity_" + partId);
+            var quantity = parseInt(quantitySpan.textContent) - 1;
+            if (quantity > 0) {
+                quantitySpan.textContent = quantity;
+
+                var hiddenQuantityInput = document.getElementById("hiddenQuantity_" + partId);
+                hiddenQuantityInput.value = quantity;
+            }
+        }
+
+        function removePart(partId) {
+            // Remove part from the list
+            var partElement = document.querySelector("li[data-id='" + partId + "']");
+            if (partElement) {
+                partElement.remove();
+            }
+
+            // Remove corresponding hidden input
+            var hiddenInput = document.getElementById("hiddenPartId_" + partId);
+            if (hiddenInput) {
+                hiddenInput.remove();
+            }
+
+            var hiddenQuantityInput = document.getElementById("hiddenQuantity_" + partId);
+            if (hiddenQuantityInput) {
+                hiddenQuantityInput.remove();
+            }
+        }
+    </script>
+}

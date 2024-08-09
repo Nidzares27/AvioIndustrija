@@ -1,0 +1,98 @@
+﻿@model List<AvioIndustrija.ViewModels.Servis.IndexServisViewModel>
+@*@model IEnumerable<AvioIndustrija.Models.Servi>
+*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="Servis" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table id="ServisTable" class="table display">
+    <thead>
+        <tr>
+            <th>
+                AvionId
+            </th>
+            <th>
+                DatumServisa
+            </th>
+            <th>
+                Komentar
+            </th>
+            <th>
+                Djelovi
+            </th>
+            <th>
+                Kolicina
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatumServisa)
+                </td>
+                <td style="overflow-wrap:break-word">
+                    @Html.DisplayFor(modelItem => item.Komentar)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var dio in item.ServisDjelovi)
+                        {
+                            <li style="width:max-content">@dio.Naziv</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul style="list-style-type:none;">
+                        @foreach (var kol in item.ServisDjelovi)
+                        {
+                            <li style="width:max-content">@kol.Kolicina</li>
+                        }
+                    </ul>
+                </td>
+                <td style="color:  @(item.Status == "Zavrsen" ? "green" : "black"); font-weight:bold">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+                    {
+                        <a asp-area="" asp-controller="Servis" asp-action="Details" asp-route-id="@item.ServisId">Details</a>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a asp-area="" asp-controller="Servis" asp-action="Edit" asp-route-id="@item.ServisId">Edit</a>
+                        <a asp-area="" asp-controller="Servis" asp-action="Delete" asp-route-id="@item.ServisId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $('#ServisTable').DataTable({
+                "paging": true,
+                "pageLength": 10
+            });
+        });
+    </script>
+}
+

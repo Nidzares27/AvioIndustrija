@@ -1,0 +1,59 @@
+﻿@using AvioIndustrija.ViewModels;
+@model DetailsIstorijaLetovaPutnikViewModel
+@*@model AvioIndustrija.Models.IstorijaLetovaPutnika
+*@
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>IstorijaLetovaPutnika</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojLeta)@* Let *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BrojLeta)@* LetId *@
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImePutnika)@* Putnik *@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImePutnika)@* PutnikId *@
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RedniBrojSjedišta)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RedniBrojSjedišta)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Klasa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Klasa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RučniPrtljag8kg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RučniPrtljag8kg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KoferiKg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KoferiKg)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ })
+    }
+    <a asp-action="Index">Back to List</a>
+</div>

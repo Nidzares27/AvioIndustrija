@@ -1,0 +1,20 @@
+﻿@using AvioIndustrija.ViewModels.Vijest;
+@model CreateVijestViewModel 
+
+<h1>Create News</h1>
+
+<form asp-action="Create">
+    <div>
+        <label for="Naslov">Naslov</label>
+        <input type="text" name="Naslov" required />
+    </div>
+    <div>
+        <label for="Sadrzaj">Sadrzaj</label>
+        <textarea name="Sadrzaj" required></textarea>
+    </div>
+    <div>
+        <label for="ImageUrl">Image URL</label>
+        <input type="text" name="ImageUrl" required />
+    </div>
+    <button type="submit">Create</button>
+</form>

@@ -1,0 +1,268 @@
+﻿@using AvioIndustrija.ViewModels;
+@model Validni_NevalidniAvioni
+
+<h2>Upload Result</h2>
+<br />
+
+@if (Model.validni.Count < 1)
+{
+    <h1>Nema Validnih aviona za unos u bazu podataka</h1>
+    <a class="btn btn-primary" asp-action="Index">Idi nazad</a>
+
+    @if (Model.nevalidni.Count > 0)
+    {
+        <h1>Broj nevalidnih Aviona za unos: @Model.nevalidni.Count!</h1>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ime Aviona</th>
+                    <th>Kompanija</th>
+                    <th>Godina Proizvodnje</th>
+                    <th>Visina (m)</th>
+                    <th>Širina (m)</th>
+                    <th>Dužina (m)</th>
+                    <th>Broj Sjedišta Biznis Klase</th>
+                    <th>Broj Sjedišta Ekonomske Klase</th>
+                    <th>Nosivost (kg)</th>
+                    <th>KapacitetRezervoara (L)</th>
+                    <th>Maksimalni Domet (km)</th>
+                    <th>ImageURL</th>
+                    <th>Greska</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.nevalidni)
+                {
+                    <tr>
+                        <td>@item.ImeAviona</td>
+                        <td>@item.Kompanija</td>
+                        <td>@item.GodinaProizvodnje</td>
+                        <td>@item.VisinaM</td>
+                        <td>@item.ŠirinaM</td>
+                        <td>@item.DužinaM</td>
+                        <td>@item.BrojSjedištaBiznisKlase</td>
+                        <td>@item.BrojSjedištaEkonomskeKlase</td>
+                        <td>@item.NosivostKg</td>
+                        <td>@item.KapacitetRezervoaraL</td>
+                        <td>@item.MaksimalniDometKm</td>
+                        <td>@item.ImageUrl</td>
+                        <td>@item.Greska</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    @if (Model.nevalidni.Count > 0)
+    {
+        <h2>U prilozenom Excel fajlu postoji @Model.nevalidni.Count aviona koji ne mogu biti dodati u bazu podataka !</h2>
+        <h1>Da li zelite da unesete preostale validne avione u bazu podataka ili zelite da obustavite akciju?</h1>
+        <form asp-action="CompleteUpload" method="post">
+            @for (int i = 0; i < Model.validni.Count; i++)
+            {
+                <input type="hidden" id="avion_@i-ImeAviona" name="avioniZaUnos[@i].ImeAviona" value="@Model.validni[@i].ImeAviona" />
+                <input type="hidden" id="avion_@i-Kompanija" name="avioniZaUnos[@i].Kompanija" value="@Model.validni[@i].Kompanija" />
+                <input type="hidden" id="avion_@i-GodinaProizvodnje" name="avioniZaUnos[@i].GodinaProizvodnje" value="@Model.validni[@i].GodinaProizvodnje" />
+                <input type="hidden" id="avion_@i-VisinaM" name="avioniZaUnos[@i].VisinaM" value="@Model.validni[@i].VisinaM" />
+                <input type="hidden" id="avion_@i-ŠirinaM" name="avioniZaUnos[@i].ŠirinaM" value="@Model.validni[@i].ŠirinaM" />
+                <input type="hidden" id="avion_@i-DužinaM" name="avioniZaUnos[@i].DužinaM" value="@Model.validni[@i].DužinaM" />
+                <input type="hidden" id="avion_@i-BrojSjedištaBiznisKlase" name="avioniZaUnos[@i].BrojSjedištaBiznisKlase" value="@Model.validni[@i].BrojSjedištaBiznisKlase" />
+                <input type="hidden" id="avion_@i-BrojSjedištaEkonomskeKlase" name="avioniZaUnos[@i].BrojSjedištaEkonomskeKlase" value="@Model.validni[@i].BrojSjedištaEkonomskeKlase" />
+                <input type="hidden" id="avion_@i-NosivostKg" name="avioniZaUnos[@i].NosivostKg" value="@Model.validni[@i].NosivostKg" />
+                <input type="hidden" id="avion_@i-KapacitetRezervoaraL" name="avioniZaUnos[@i].KapacitetRezervoaraL" value="@Model.validni[@i].KapacitetRezervoaraL" />
+                <input type="hidden" id="avion_@i-MaksimalniDometKm" name="avioniZaUnos[@i].MaksimalniDometKm" value="@Model.validni[@i].MaksimalniDometKm" />
+                <input type="hidden" id="avion_@i-ImageUrl" name="avioniZaUnos[@i].ImageUrl" value="@Model.validni[@i].ImageUrl" />
+            }
+            <button type="submit" class="btn btn-primary">Unesi validne Avione</button>
+        </form>
+        <br />
+        <form asp-action="CancelUpload" method="post">
+            @for (int i = 0; i < Model.validni.Count; i++)
+            {
+                <input type="hidden" id="avion_@i-ImeAviona" name="avioniZaUnos[@i].ImeAviona" value="@Model.validni[@i].ImeAviona" />
+                <input type="hidden" id="avion_@i-Kompanija" name="avioniZaUnos[@i].Kompanija" value="@Model.validni[@i].Kompanija" />
+                <input type="hidden" id="avion_@i-GodinaProizvodnje" name="avioniZaUnos[@i].GodinaProizvodnje" value="@Model.validni[@i].GodinaProizvodnje" />
+                <input type="hidden" id="avion_@i-VisinaM" name="avioniZaUnos[@i].VisinaM" value="@Model.validni[@i].VisinaM" />
+                <input type="hidden" id="avion_@i-ŠirinaM" name="avioniZaUnos[@i].ŠirinaM" value="@Model.validni[@i].ŠirinaM" />
+                <input type="hidden" id="avion_@i-DužinaM" name="avioniZaUnos[@i].DužinaM" value="@Model.validni[@i].DužinaM" />
+                <input type="hidden" id="avion_@i-BrojSjedištaBiznisKlase" name="avioniZaUnos[@i].BrojSjedištaBiznisKlase" value="@Model.validni[@i].BrojSjedištaBiznisKlase" />
+                <input type="hidden" id="avion_@i-BrojSjedištaEkonomskeKlase" name="avioniZaUnos[@i].BrojSjedištaEkonomskeKlase" value="@Model.validni[@i].BrojSjedištaEkonomskeKlase" />
+                <input type="hidden" id="avion_@i-NosivostKg" name="avioniZaUnos[@i].NosivostKg" value="@Model.validni[@i].NosivostKg" />
+                <input type="hidden" id="avion_@i-KapacitetRezervoaraL" name="avioniZaUnos[@i].KapacitetRezervoaraL" value="@Model.validni[@i].KapacitetRezervoaraL" />
+                <input type="hidden" id="avion_@i-MaksimalniDometKm" name="avioniZaUnos[@i].MaksimalniDometKm" value="@Model.validni[@i].MaksimalniDometKm" />
+                <input type="hidden" id="avion_@i-ImageUrl" name="avioniZaUnos[@i].ImageUrl" value="@Model.validni[@i].ImageUrl" />
+            }
+            <button type="submit" class="btn btn-primary">Otkazi</button>
+        </form>
+        <br />
+        <br />
+        <h1>Broj aviona Validnih za unos u bazu podataka: @Model.validni.Count Aviona!</h1>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ime Aviona</th>
+                    <th>Kompanija</th>
+                    <th>Godina Proizvodnje</th>
+                    <th>Visina (m)</th>
+                    <th>Širina (m)</th>
+                    <th>Dužina (m)</th>
+                    <th>Broj Sjedišta Biznis Klase</th>
+                    <th>Broj Sjedišta Ekonomske Klase</th>
+                    <th>Nosivost (kg)</th>
+                    <th>KapacitetRezervoara (L)</th>
+                    <th>Maksimalni Domet (km)</th>
+                    <th>ImageURL</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.validni)
+                {
+                    <tr>
+                        <td>@item.ImeAviona</td>
+                        <td>@item.Kompanija</td>
+                        <td>@item.GodinaProizvodnje</td>
+                        <td>@item.VisinaM</td>
+                        <td>@item.ŠirinaM</td>
+                        <td>@item.DužinaM</td>
+                        <td>@item.BrojSjedištaBiznisKlase</td>
+                        <td>@item.BrojSjedištaEkonomskeKlase</td>
+                        <td>@item.NosivostKg</td>
+                        <td>@item.KapacitetRezervoaraL</td>
+                        <td>@item.MaksimalniDometKm</td>
+                        <td>@item.ImageUrl</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h1>Broj nevalidnih Aviona za unos: @Model.nevalidni.Count!</h1>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ime Aviona</th>
+                    <th>Kompanija</th>
+                    <th>Godina Proizvodnje</th>
+                    <th>Visina (m)</th>
+                    <th>Širina (m)</th>
+                    <th>Dužina (m)</th>
+                    <th>Broj Sjedišta Biznis Klase</th>
+                    <th>Broj Sjedišta Ekonomske Klase</th>
+                    <th>Nosivost (kg)</th>
+                    <th>KapacitetRezervoara (L)</th>
+                    <th>Maksimalni Domet (km)</th>
+                    <th>ImageURL</th>
+                    <th>Greska</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.nevalidni)
+                {
+                    <tr>
+                        <td>@item.ImeAviona</td>
+                        <td>@item.Kompanija</td>
+                        <td>@item.GodinaProizvodnje</td>
+                        <td>@item.VisinaM</td>
+                        <td>@item.ŠirinaM</td>
+                        <td>@item.DužinaM</td>
+                        <td>@item.BrojSjedištaBiznisKlase</td>
+                        <td>@item.BrojSjedištaEkonomskeKlase</td>
+                        <td>@item.NosivostKg</td>
+                        <td>@item.KapacitetRezervoaraL</td>
+                        <td>@item.MaksimalniDometKm</td>
+                        <td>@item.ImageUrl</td>
+                        <td>@item.Greska</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <h1>Svi avioni su Validni za unos u bazu podataka: @Model.validni.Count Aviona!</h1>
+        <form asp-action="CompleteUpload" method="post">
+            @for (int i = 0; i < Model.validni.Count; i++)
+            {
+                <input type="hidden" id="avion_@i-ImeAviona" name="avioniZaUnos[@i].ImeAviona" value="@Model.validni[@i].ImeAviona" />
+                <input type="hidden" id="avion_@i-Kompanija" name="avioniZaUnos[@i].Kompanija" value="@Model.validni[@i].Kompanija" />
+                <input type="hidden" id="avion_@i-GodinaProizvodnje" name="avioniZaUnos[@i].GodinaProizvodnje" value="@Model.validni[@i].GodinaProizvodnje" />
+                <input type="hidden" id="avion_@i-VisinaM" name="avioniZaUnos[@i].VisinaM" value="@Model.validni[@i].VisinaM" />
+                <input type="hidden" id="avion_@i-ŠirinaM" name="avioniZaUnos[@i].ŠirinaM" value="@Model.validni[@i].ŠirinaM" />
+                <input type="hidden" id="avion_@i-DužinaM" name="avioniZaUnos[@i].DužinaM" value="@Model.validni[@i].DužinaM" />
+                <input type="hidden" id="avion_@i-BrojSjedištaBiznisKlase" name="avioniZaUnos[@i].BrojSjedištaBiznisKlase" value="@Model.validni[@i].BrojSjedištaBiznisKlase" />
+                <input type="hidden" id="avion_@i-BrojSjedištaEkonomskeKlase" name="avioniZaUnos[@i].BrojSjedištaEkonomskeKlase" value="@Model.validni[@i].BrojSjedištaEkonomskeKlase" />
+                <input type="hidden" id="avion_@i-NosivostKg" name="avioniZaUnos[@i].NosivostKg" value="@Model.validni[@i].NosivostKg" />
+                <input type="hidden" id="avion_@i-KapacitetRezervoaraL" name="avioniZaUnos[@i].KapacitetRezervoaraL" value="@Model.validni[@i].KapacitetRezervoaraL" />
+                <input type="hidden" id="avion_@i-MaksimalniDometKm" name="avioniZaUnos[@i].MaksimalniDometKm" value="@Model.validni[@i].MaksimalniDometKm" />
+                <input type="hidden" id="avion_@i-ImageUrl" name="avioniZaUnos[@i].ImageUrl" value="@Model.validni[@i].ImageUrl" />
+            }
+            <button type="submit" class="btn btn-primary">Unesi validne Avione</button>
+        </form>
+        <form asp-action="CancelUpload" method="post">
+            @for (int i = 0; i < Model.validni.Count; i++)
+            {
+                <input type="hidden" id="avion_@i-ImeAviona" name="avioniZaUnos[@i].ImeAviona" value="@Model.validni[@i].ImeAviona" />
+                <input type="hidden" id="avion_@i-Kompanija" name="avioniZaUnos[@i].Kompanija" value="@Model.validni[@i].Kompanija" />
+                <input type="hidden" id="avion_@i-GodinaProizvodnje" name="avioniZaUnos[@i].GodinaProizvodnje" value="@Model.validni[@i].GodinaProizvodnje" />
+                <input type="hidden" id="avion_@i-VisinaM" name="avioniZaUnos[@i].VisinaM" value="@Model.validni[@i].VisinaM" />
+                <input type="hidden" id="avion_@i-ŠirinaM" name="avioniZaUnos[@i].ŠirinaM" value="@Model.validni[@i].ŠirinaM" />
+                <input type="hidden" id="avion_@i-DužinaM" name="avioniZaUnos[@i].DužinaM" value="@Model.validni[@i].DužinaM" />
+                <input type="hidden" id="avion_@i-BrojSjedištaBiznisKlase" name="avioniZaUnos[@i].BrojSjedištaBiznisKlase" value="@Model.validni[@i].BrojSjedištaBiznisKlase" />
+                <input type="hidden" id="avion_@i-BrojSjedištaEkonomskeKlase" name="avioniZaUnos[@i].BrojSjedištaEkonomskeKlase" value="@Model.validni[@i].BrojSjedištaEkonomskeKlase" />
+                <input type="hidden" id="avion_@i-NosivostKg" name="avioniZaUnos[@i].NosivostKg" value="@Model.validni[@i].NosivostKg" />
+                <input type="hidden" id="avion_@i-KapacitetRezervoaraL" name="avioniZaUnos[@i].KapacitetRezervoaraL" value="@Model.validni[@i].KapacitetRezervoaraL" />
+                <input type="hidden" id="avion_@i-MaksimalniDometKm" name="avioniZaUnos[@i].MaksimalniDometKm" value="@Model.validni[@i].MaksimalniDometKm" />
+                <input type="hidden" id="avion_@i-ImageUrl" name="avioniZaUnos[@i].ImageUrl" value="@Model.validni[@i].ImageUrl" />
+            }
+            <button type="submit" class="btn btn-primary">Otkazi</button>
+        </form>
+        <br />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ime Aviona</th>
+                    <th>Kompanija</th>
+                    <th>Godina Proizvodnje</th>
+                    <th>Visina (m)</th>
+                    <th>Širina (m)</th>
+                    <th>Dužina (m)</th>
+                    <th>Broj Sjedišta Biznis Klase</th>
+                    <th>Broj Sjedišta Ekonomske Klase</th>
+                    <th>Nosivost (kg)</th>
+                    <th>KapacitetRezervoara (L)</th>
+                    <th>Maksimalni Domet (km)</th>
+                    <th>ImageURL</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.validni)
+                {
+                    <tr>
+                        <td>@item.ImeAviona</td>
+                        <td>@item.Kompanija</td>
+                        <td>@item.GodinaProizvodnje</td>
+                        <td>@item.VisinaM</td>
+                        <td>@item.ŠirinaM</td>
+                        <td>@item.DužinaM</td>
+                        <td>@item.BrojSjedištaBiznisKlase</td>
+                        <td>@item.BrojSjedištaEkonomskeKlase</td>
+                        <td>@item.NosivostKg</td>
+                        <td>@item.KapacitetRezervoaraL</td>
+                        <td>@item.MaksimalniDometKm</td>
+                        <td>@item.ImageUrl</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}

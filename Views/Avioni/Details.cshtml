@@ -1,0 +1,94 @@
+﻿@model AvioIndustrija.Models.Avion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detail</h1>
+
+<div>
+    <h4>Avion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImeAviona)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImeAviona)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kompanija)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kompanija)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GodinaProizvodnje)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GodinaProizvodnje)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VisinaM)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VisinaM)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ŠirinaM)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ŠirinaM)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DužinaM)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DužinaM)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojSjedištaBiznisKlase)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BrojSjedištaBiznisKlase)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojSjedištaEkonomskeKlase)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BrojSjedištaEkonomskeKlase)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NosivostKg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NosivostKg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.KapacitetRezervoaraL)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.KapacitetRezervoaraL)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaksimalniDometKm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaksimalniDometKm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+@*            @Html.DisplayFor(model => model.ImeAviona)
+*@            <img class="img-fluid" src="@Model.ImageUrl" alt="">
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+    {
+    <a asp-action="Edit" asp-route-id="@Model?.AvionId">Edit</a>
+    }
+    <a asp-action="Index">Back to List</a>
+</div>

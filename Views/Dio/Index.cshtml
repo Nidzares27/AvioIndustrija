@@ -1,0 +1,81 @@
+﻿@model IEnumerable<AvioIndustrija.Models.Dio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Djelovi</h1>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="Dio" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table id="DioTable" class="table display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SerijskiBroj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naziv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proizvodjac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GodinaProizvodnja)
+            </th>
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerijskiBroj)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proizvodjac)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GodinaProizvodnja)
+                </td>
+                @*                <td>
+            @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+            {
+            <a asp-area="" asp-controller="Dio" asp-action="Details" asp-route-id="@item.SerijskiBroj">Details</a>
+            }
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+            <a asp-area="" asp-controller="Dio" asp-action="Edit" asp-route-id="@item.SerijskiBroj">Edit</a>
+            <a asp-area="" asp-controller="Dio" asp-action="Delete" asp-route-id="@item.SerijskiBroj">Delete</a>
+            }
+            </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $('#DioTable').DataTable({
+                "paging": true,
+                "pageLength": 10
+            });
+        });
+    </script>
+}

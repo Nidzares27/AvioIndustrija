@@ -1,0 +1,44 @@
+﻿@using AvioIndustrija.ViewModels.Vijest;
+@model EditVijestViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Vijest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VijestId" />
+            <input type="hidden" asp-for="KorisnikId" />
+            <input type="hidden" asp-for="VrijemeObjave" />
+            <input type="hidden" asp-for="BrojPregleda" />
+            <input type="hidden" asp-for="ProsjecnaOcjena" />
+            <div class="form-group">
+                <label asp-for="Naslov" class="control-label"></label>
+                <input type="text" asp-for="Naslov" class="form-control" />
+                <span asp-validation-for="Naslov" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sadrzaj" class="control-label"></label>
+                <textarea asp-for="Sadrzaj" class="form-control" name="Sadrzaj" required></textarea>
+                <span asp-validation-for="Sadrzaj" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input type="text" asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

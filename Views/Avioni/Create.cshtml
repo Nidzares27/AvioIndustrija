@@ -1,0 +1,106 @@
+﻿@using AvioIndustrija.ViewModels;
+@model CreateAvionViewModel
+
+@*@model AvioIndustrija.Models.Avion
+*@
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Avion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h4> @ViewData["error"]</h4>
+            <div class="form-group">
+                <label asp-for="ImeAviona" class="control-label"></label>
+                <input asp-for="ImeAviona" class="form-control" />
+                <span asp-validation-for="ImeAviona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kompanija" class="control-label"></label>
+                <input asp-for="Kompanija" class="form-control" />
+                <span asp-validation-for="Kompanija" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodinaProizvodnje" class="control-label"></label>
+                <input asp-for="GodinaProizvodnje" class="form-control" />
+                <span asp-validation-for="GodinaProizvodnje" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VisinaM" class="control-label"></label>
+                <input asp-for="VisinaM" class="form-control" />
+                <span asp-validation-for="VisinaM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ŠirinaM" class="control-label"></label>
+                <input asp-for="ŠirinaM" class="form-control" />
+                <span asp-validation-for="ŠirinaM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DužinaM" class="control-label"></label>
+                <input asp-for="DužinaM" class="form-control" />
+                <span asp-validation-for="DužinaM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrojSjedištaBiznisKlase" class="control-label"></label>
+                <input asp-for="BrojSjedištaBiznisKlase" class="form-control" />
+                <span asp-validation-for="BrojSjedištaBiznisKlase" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrojSjedištaEkonomskeKlase" class="control-label"></label>
+                <input asp-for="BrojSjedištaEkonomskeKlase" class="form-control" />
+                <span asp-validation-for="BrojSjedištaEkonomskeKlase" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NosivostKg" class="control-label"></label>
+                <input asp-for="NosivostKg" class="form-control" />
+                <span asp-validation-for="NosivostKg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KapacitetRezervoaraL" class="control-label"></label>
+                <input asp-for="KapacitetRezervoaraL" class="form-control" />
+                <span asp-validation-for="KapacitetRezervoaraL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaksimalniDometKm" class="control-label"></label>
+                <input asp-for="MaksimalniDometKm" class="form-control" />
+                <span asp-validation-for="MaksimalniDometKm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" type="file" class="form-control" id="imageInput" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function (e) {
+            var file = e.target.files[0];
+            if (file) {
+                var fileType = file.type;
+                var validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+                if (!validImageTypes.includes(fileType)) {
+                    alert("Please upload a valid image file (JPEG, PNG, GIF).");
+                    e.target.value = ''; // Clear the input
+                    return;
+                }
+            }
+        });
+    </script>
+}

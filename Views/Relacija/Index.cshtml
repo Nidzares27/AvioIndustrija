@@ -1,0 +1,80 @@
+﻿@model IEnumerable<AvioIndustrija.Models.Relacija>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="Relacija" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GradOd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DržavaOd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AerodromOd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GradDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DržavaDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AerodromDo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UdaljenostKm)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DržavaOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AerodromOd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DržavaDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AerodromDo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UdaljenostKm)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+                {
+                    <a asp-area="" asp-controller="Relacija" asp-action="Details" asp-route-id="@item.RelacijaId">Details</a>
+                }
+                @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                {
+                    <a asp-area="" asp-controller="Relacija" asp-action="Edit" asp-route-id="@item.RelacijaId">Edit</a>
+                    <a asp-area="" asp-controller="Relacija" asp-action="Delete" asp-route-id="@item.RelacijaId">Delete</a>
+                }
+            </td>  
+        </tr>
+}
+    </tbody>
+</table>

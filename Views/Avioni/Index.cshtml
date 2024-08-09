@@ -1,0 +1,229 @@
+﻿@using AvioIndustrija.ViewModels
+@model IndexAvionViewModel
+@{
+    ViewData["Title"] = "Avioni";
+    var successMessage = TempData["SuccessMessage"];
+
+}
+
+<h1>Avioni</h1>
+@if (successMessage != null)
+{
+    <div class="alert alert-success">
+        @successMessage
+    </div>
+}
+<a class="btn btn-primary" asp-action="ExportAvionsExcel">Download Excel</a>
+<a class="btn btn-primary" id="EFAE" asp-action="ExportFilteredAvionsExcel">Download Filtered Excel</a>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carouselModal">
+    Prikazi Galeriju Aviona
+</button>
+
+<form asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="SortOrder" />
+    <input type="hidden" asp-for="SearchString" />
+    <input type="hidden" asp-for="CurrentFilter" />
+    <input type="hidden" asp-for="PageNumber" />
+    <input type="hidden" asp-for="ActiveClassCounter" />
+    <input type="hidden" asp-for="AllItems" />
+    <div class="form-group">
+        <label for="file">Upload File</label>
+        <input type="file" name="file" id="file" class="form-control" accept=".xls,.xlsx" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+@if (ViewData.ModelState["File"] != null)
+{
+    <div class="alert alert-danger">
+        @ViewData.ModelState["File"].Errors[0].ErrorMessage
+    </div>
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="Avioni" asp-action="Create">Create New</a>
+    </p>
+}
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Pretraga po imenu Aviona / Kompanije: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<div class="modal fade" id="carouselModal" tabindex="-1" role="dialog" aria-labelledby="carouselModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carouselModalLabel">Image Carousel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Carousel -->
+                <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach (var item in Model.AllItems)
+                        {
+                            if (item.ImageUrl != null)
+                            {
+                                <div class="carousel-item @(Model.ActiveClassCounter < 1 ? "active": "") ">
+                                    <h1>@item.ImeAviona @item.Kompanija </h1>
+                                    <img src="@item.ImageUrl" class="d-block w-100" alt="Image @item.AvionId">
+                                </div>
+                                Model.ActiveClassCounter += 1;
+                            }
+                        }
+                        @if (Model.ActiveClassCounter < 1)
+                        {
+                            <div class="carousel-item active ">
+                                <h1> Ne postoje podaci za prikaz! </h1>
+                                <h2> Dodajte slike aviona, kako bi popunili galeriju!</h2>
+                            </div>
+                        }
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" style="background-color:red" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" style="background-color:red" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ImeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Ime Aviona</a>
+            </th>
+            <th>
+                Kompanija
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GodinaProizvodnjeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Godina Proizvodnje</a>
+            </th>
+            <th>
+                Visina (m)
+            </th>
+            <th>
+                Širina (m)
+            </th>
+            <th>
+                Dužina (m)
+            </th>
+            <th>
+                Broj Sjedišta Biznis Klase
+            </th>
+            <th>
+                Broj Sjedišta Ekonomske Klase
+            </th>
+            <th>
+                Nosivost (kg)
+            </th>
+            <th>
+                KapacitetRezervoara (L)
+            </th>
+            <th>
+                Maksimalni Domet (km)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaginatedItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImeAviona)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kompanija)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GodinaProizvodnje)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VisinaM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ŠirinaM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DužinaM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrojSjedištaBiznisKlase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrojSjedištaEkonomskeKlase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NosivostKg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KapacitetRezervoaraL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaksimalniDometKm)
+                </td>
+
+                <td>
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+                    {
+                        <a asp-area="" asp-controller="Avioni" asp-action="Details" asp-route-id="@item.AvionId">Details</a>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a asp-area="" asp-controller="Avioni" asp-action="Edit" asp-route-id="@item.AvionId">Edit</a>
+                        <a asp-area="" asp-controller="Avioni" asp-action="Delete" asp-route-id="@item.AvionId"> Delete </a>
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.PaginatedItems.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PaginatedItems.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PaginatedItems.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PaginatedItems.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+@section Scripts {
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            var fileInput = document.getElementById('file');
+            if (fileInput.files.length === 0) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+}

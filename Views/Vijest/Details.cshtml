@@ -1,0 +1,318 @@
+﻿@using AvioIndustrija.ViewModels.Vijest;
+@model DetailsVijestViewModel
+
+<section>
+    <div id="vijestDiv" style="border-right:solid">
+        <h1>@Model.Naslov</h1>
+        <br />
+        <div style="width:-webkit-fill-available">
+            <div>
+                <p style="float:left; color:dimgrey; font-family:Verdana;">@Model.BrojPregleda pregleda</p>
+                <p style="float:right; color:dimgrey; font-family:Verdana;">Prosjecna ocjena: @Model.ProsjecnaOcjena <span class="starr;" style="color:gold">&#9733;</span></p>
+            </div>
+            <img src="@Model.ImageUrl" alt="News Image" />
+            <div>
+                <p style="float:left; color:dimgrey; font-family:Verdana;">by @Model.ImeKorisnika @Model.PrezimeKorisnika</p>
+                <p style="float:right; color:dimgrey; font-family:Verdana;">@Model.VrijemeObjave</p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div>
+            @Html.Raw(ViewBag.HtmlContent)
+        </div>
+        <br />
+        <br />
+        <hr />
+        <div>
+            <h3 style="float:left">Komentari</h3>
+        </div>
+        <br />
+        <br />
+        <ul style="padding-left: 0;">
+            @foreach (var comment in Model.Komentari)
+            {
+                @await Html.PartialAsync("_Comment", comment)
+                @* @Html.Partial("_Comment", comment) *@
+            }
+        </ul>
+
+        <hr />
+
+        <form asp-action="AddComment" method="post" style="display:flex; align-items:center">
+            <input asp-for="VijestId" type="hidden" name="vijestId" value="@Model.VijestId" />
+            <textarea name="sadrzaj" style="width:70%;"  placeholder="Unesite vas komentar"></textarea>
+            <button type="submit" id="addCommentBtn" class="btn btn-primary " style="margin-left:1rem">Add Comment</button>
+        </form>
+        <br />
+        @if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+        {
+            <h3>Rate this news</h3>
+
+            <div id="rating" data-current-rating="@Model.UserRating" data-item-id="@Model.VijestId">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <span class="star @(i <= Model.UserRating ? "selected" : "")" data-value="@i">&#9733;</span>
+                }
+            </div>
+
+            <input type="hidden" id="vijesttId" name="vijestId" value="@Model.VijestId" />
+        }
+        <br />
+        <a class="btn btn-secondary" asp-area="" asp-controller="Vijest" asp-action="Index">Prikazi sve vijesti</a>
+    </div>
+    <nav id="linkoviZaDrugeVijesti">
+        <h2 style="text-align:center">Jos Vijesti</h2>
+        <hr />
+        <ul style="padding-left:0">
+            @foreach (var vijest in Model.ListaPredloga)
+            {
+                <a href="@Url.Action("Details", "Vijest", new { id = vijest.VijestId })" style="text-decoration:none; color:black;">
+                    <img src="@vijest.ImageUrl" class="slikeVijesti" alt="News Image" style="width:90%; height: 90%" />
+                    <h4 style="padding-top:10px" class="naslovi">@vijest.Naslov</h4>
+                    <hr style="color:aqua" />
+                </a>
+            }
+        </ul>
+    </nav>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    var currentRating = $('#rating').data('current-rating');
+    console.log(currentRating);
+    var stars = $('.star');
+
+
+    $(document).ready(function () {
+
+        stars.removeClass('selected');
+        stars.each(function (index) {
+            if (index < currentRating) {
+                $(this).addClass('selected');
+            } else {
+                $(this).removeClass('selected');
+            }
+        });
+
+        stars.on('mouseover', function () {
+            var value = $(this).data('value');
+            stars.each(function (index) {
+            if (index < value) {
+                    $(this).addClass('selected');
+                } else {
+                    $(this).removeClass('selected');
+                }
+            });
+        });
+
+        stars.on('mouseout', function () {
+            stars.removeClass('selected');
+            stars.each(function (index) {
+                if (index < currentRating) {
+                    $(this).addClass('selected');
+                } else {
+                    $(this).removeClass('selected');
+                }
+            });
+        });
+
+        stars.on('click', function () {
+            var value = $(this).data('value');
+            var itemId = $('#vijesttId').val();
+
+            $.post('/Vijest/AddRating', { vijestId: itemId, stars: value }, function () {
+                location.reload({ forceReload: true });//
+                // setRatings(value);
+                // alert('Rating submitted!');   
+            }).fail(function () {
+                alert('Error submitting rating');
+                setRatings(value);
+            });
+
+        });
+    });
+
+    function setRatings(rating){
+
+        console.log(rating);
+        stars.removeClass('selected');
+        stars.each(function (index) {
+        if (index < rating) {
+                $(this).addClass('selected');
+            } else {
+                $(this).removeClass('selected');
+            }
+        });
+
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showFormButtons = document.querySelectorAll('.showFormButton');
+
+        showFormButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent the click from bubbling up to the document
+                const formId = button.getAttribute('data-id');
+                const formContainer = document.getElementById(`formContainer-${formId}`);
+                formContainer.classList.toggle('hidden');
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            showFormButtons.forEach(button => {
+                const formId = button.getAttribute('data-id');
+                const formContainer = document.getElementById(`formContainer-${formId}`);
+                // Check if the click is outside the formContainer and showFormButton
+                if (!formContainer.contains(event.target) && !button.contains(event.target)) {
+                    formContainer.classList.add('hidden');
+                }
+            });
+        });
+
+        const formContainers = document.querySelectorAll('.formContainer');
+        formContainers.forEach(formContainer => {
+            formContainer.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent the click inside the form from bubbling up to the document
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function editcomm(clicked_sadrzaj) {
+        console.log("called")
+        var komentar = document.getElementById('sadrzajKomentara-' + clicked_sadrzaj);
+        if (komentar.style.border === "none" {
+            komentar.style.border = 'solid';
+            komentar.style.outline = 'solid';
+            komentar.removeAttribute('readonly');
+        } else {
+            komentar.style.border = 'none';
+            komentar.style.outline = 'none';
+            komentar.setAttribute('readonly');
+        }
+    }
+</script>
+@* <script>
+    document.addEventListener('click', function (e) {
+        e = e || window.event;
+        console.log(e);
+        var target = e.target || e.srcElement,
+            text = target.textContent || target.innerText;
+        console.log(target.getAttribute("id"));
+        if (toString(target.getAttribute("id")).startsWith("editBtn-")) {
+            var id = toString(target.getAttribute("id")).split('-')[1];
+            var komentar = document.getElementById('sadrzajKomentara-' + id);
+            if (komentar.style.border === "none" {
+                komentar.style.border = 'solid';
+                komentar.style.outline = 'solid';
+                komentar.removeAttribute('readonly');
+            } else {
+                komentar.style.border = 'none';
+                komentar.style.outline = 'none';
+                komentar.setAttribute('readonly');
+            }
+        }
+
+    }, false);
+</script> *@
+<script type="text/javascript">
+    function reply_click(clicked_id) {
+        var list = document.getElementById('toggleList-' + clicked_id);
+        if (list.style.display === 'none') {
+            list.style.display = 'block';
+        } else {
+            list.style.display = 'none';
+        }
+    }
+</script>
+<script>
+    // Function to save the scroll position
+    function saveScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Function to restore the scroll position
+    function restoreScrollPosition() {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            sessionStorage.removeItem('scrollPosition'); // Optional: remove after restoring
+        }
+    }
+
+    // Save scroll position before the form submission or update
+    document.querySelector("#addCommentBtn").addEventListener("click", saveScrollPosition);
+    document.querySelector(".lvl1komObrisi").addEventListener("click", saveScrollPosition);
+    document.querySelector(".lvl1komOdgovori").addEventListener("click", saveScrollPosition);
+
+    // Restore scroll position when the page loads or updates
+    window.addEventListener("load", restoreScrollPosition);
+</script>
+
+<style>
+    .cont {
+        display: flex;
+        /* could also be column-reverse*/
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        padding-left: 0;
+    }
+    .star {
+        font-size: 2rem;
+        cursor: pointer;
+        color: gray;
+    }
+
+    .star.selected {
+        color: gold;
+    }
+
+    .star.hover {
+        color: gold;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    img{
+        width: -webkit-fill-available;
+    }
+
+    #formContainer {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+
+    section::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    #vijestDiv{
+        float: left;
+        width: 70%;
+        padding: 20px;
+    }
+
+    #linkoviZaDrugeVijesti {
+        float: left;
+        width: 30%;
+        padding: 20px;
+    }
+</style>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,155 @@
+﻿@model IEnumerable<AvioIndustrija.Models.Putnik>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="Putnik" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table id="PutniciTable" class="table display">
+    <thead>
+        <tr>
+            <th>
+                Icon
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <div class="image-container">
+                        <img id="image" class="small-image" data-large-src="@item.ImageUrl" style="height: 30px; width: 30px; border: solid, 1px, black; cursor: pointer;" src="@item.ImageUrl" data-toggle="modal" data-target="#exampleModal-@item.PutnikId" />
+                        @if (!String.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <div class="popup" id="popup-@item.ImageUrl">
+                                <img src="@item.ImageUrl" class="large-image" />
+                            </div>
+                        }
+
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pol)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+                    {
+                        <a asp-area="" asp-controller="Putnik" asp-action="Details" asp-route-id="@item.PutnikId">Details</a>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a asp-area="" asp-controller="Putnik" asp-action="Edit" asp-route-id="@item.PutnikId">Edit</a>
+                        <a asp-area="" asp-controller="Putnik" asp-action="Delete" asp-route-id="@item.PutnikId">Delete</a>
+                    }
+                </td>
+
+
+                @if (!String.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <div class="modal fade" id="exampleModal-@item.PutnikId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img id="image" style="height: 80%; width: 80%; display:block; margin-left:auto; margin-right:auto;" src="@item.ImageUrl" data-toggle="modal" data-target="#exampleModal" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $('#PutniciTable').DataTable({
+                "paging": true,
+                "pageLength": 10
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.small-image').forEach(function (img) {
+            img.addEventListener('mouseover', function (event) {
+                let popup = img.nextElementSibling;
+                popup.style.display = 'block';
+                popup.style.left = img.offsetWidth + 10 + 'px'; // Adjust the position
+                popup.style.top = img.offsetTop + -100 + 'px';
+            });
+
+            img.addEventListener('mouseout', function (event) {
+                let popup = img.nextElementSibling;
+                popup.style.display = 'none';
+            });
+        });
+    </script>
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .small-image {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .large-image {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+
+}

@@ -1,0 +1,147 @@
+﻿@using AvioIndustrija.ViewModels;
+@model IzvjestajOLetovimaViewModel
+@{
+    ViewData["Title"] = "Izvjestaj o Letovima";
+}
+<h1>Izvjestaj o Letovima</h1>
+
+<form asp-action="IzvjestajOLetovima">
+    <div class="form-group">
+        <label asp-for="DatumOd" class="control-label">Datum Od:</label>
+        <input asp-for="DatumOd" type="text" class="form-control" id="datepicker1" name="DatumOd" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DatumDo" class="control-label">Datum Do:</label>
+        <input asp-for="DatumDo" type="text" class="form-control" id="datepicker2" name="DatumDo" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<br />
+
+@if (Model.letovi != null)
+{
+    <a id="printPDF" class="btn btn-primary">Generate PDF</a>
+
+@*        <table class="table" id="letoviIzvjestaji">
+        <thead>
+            <tr>
+                <th>
+                    "Broj Leta"
+                </th>
+                <th>
+                    "Vrijeme Poletanja"
+                </th>
+                <th>
+                    "Vrijeme Sletanja"
+                </th>
+                <th>
+                    "Avion ID"
+                </th>
+                <th>
+                    "Relacija ID"
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.letovi)
+            {
+                <tr>
+                    <td>@item.BrojLeta</td>
+                    <td>@item.VrijemePoletanja</td>
+                    <td>@item.VrijemeSletanja</td>
+                    <td>@item.AvionId</td>
+                    <td>@item.RelacijaId</td>
+                </tr>
+            }
+
+        </tbody>
+    </table> *@
+
+    <div id="letoviIzvjestaji">
+        <br />
+        <h2>Broj Letova: @Model.brojLetova</h2>
+        <br />
+        <h1>Najcesci Avion/i: @Model.brojLetovaNajcescihAviona put/a</h1>
+        @foreach (var item in Model.najcesciAvioni)
+        {
+            <h1>Avion ID: @item.AvionId</h1>
+            <h2>Avion: @item.ImeAviona - @item.Kompanija</h2>
+            <br />
+        }
+
+        <br />
+
+        <h1>Najcesca/e Relacija/e: @Model.brojLetovaNajcescimRelacijama put/a</h1>
+        @foreach (var item in Model.najcesceRelacije)
+        {
+            <h1> Relacija ID: @item.RelacijaId</h1>
+            <h2>Ruta: ( @item.AerodromOd - @item.GradOd - @item.DržavaOd) => ( @item.AerodromDo - @item.GradDo - @item.DržavaDo)</h2>
+            <br />
+        }
+
+        <br />
+        <hr>
+        <br />
+
+        @foreach (var item in Model.letovi)
+        {
+            <h1> Let broj: @item.BrojLeta </h1>
+            <p>Avion @item.AvionId koji leti na relaciji @item.RelacijaId je poletio @item.VrijemePoletanja i sletio @item.VrijemeSletanja </p>
+            <br />
+        }
+    </div>
+
+
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#datepicker1').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+            $('#datepicker2').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Include Bootstrap DatePicker -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @*    <script src="~/js/html2pdf.bundle.min.js"></script>*@   
+    
+    <script>
+              $("#printPDF").click(function(){
+                  var element = document.getElementById('letoviIzvjestaji');
+
+                  html2pdf().from(element).set({
+                      margin: [30,10,5,10],
+                      filename: 'izvjestajLetovi.pdf',
+                      pagebreak: {
+                          mode: ['avoid-all', 'css', 'legacy']
+                      },
+                      html2canvas: { scale: 1, scrollY: 0 },
+                      jsPDF: {orientation: 'landscape', unit: 'pt', format: 'letter', compressPDF: true}
+                  }).save()
+              });
+    </script>
+}
+

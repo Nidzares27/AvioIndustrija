@@ -1,0 +1,211 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AvioIndustrija
+build_property.RootNamespace = AvioIndustrija
+build_property.ProjectDir = C:\Users\DeskPC\Desktop\AvioIndustrija-BezMape\AvioIndustrija\AvioIndustrija\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\DeskPC\Desktop\AvioIndustrija-BezMape\AvioIndustrija\AvioIndustrija
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Avioni/UploadSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXZpb25pXFVwbG9hZFN1Y2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Dio/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlvXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Dio/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Home/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/IstorijaLetovaPutnika/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXN0b3JpamFMZXRvdmFQdXRuaWthXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/IstorijaLetovaPutnika/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXN0b3JpamFMZXRvdmFQdXRuaWthXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/IstorijaLetovaPutnika/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXN0b3JpamFMZXRvdmFQdXRuaWthXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/IstorijaLetovaPutnika/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXN0b3JpamFMZXRvdmFQdXRuaWthXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/IstorijaLetovaPutnika/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSXN0b3JpamFMZXRvdmFQdXRuaWthXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Let/IzvjestajOLetovima.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGV0XEl6dmplc3Rhak9MZXRvdmltYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Putnik/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHV0bmlrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Putnik/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHV0bmlrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Putnik/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHV0bmlrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Putnik/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHV0bmlrXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Putnik/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHV0bmlrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Relacija/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYWNpamFcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Relacija/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYWNpamFcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Relacija/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYWNpamFcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Relacija/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYWNpamFcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Relacija/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYWNpamFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Servis/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmlzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Servis/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmlzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Vijest/_Comment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlqZXN0XF9Db21tZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DeskPC/Desktop/AvioIndustrija-BezMape/AvioIndustrija/AvioIndustrija/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-6w1u8a8rs6

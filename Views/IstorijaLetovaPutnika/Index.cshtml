@@ -1,0 +1,115 @@
+﻿@model PaginatedList<AvioIndustrija.Models.IstorijaLetovaPutnika>
+@*@model IEnumerable<AvioIndustrija.Models.IstorijaLetovaPutnika>
+*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <p>
+        <a asp-area="" asp-controller="IstorijaLetovaPutnika" asp-action="Create">Create New</a>
+    </p>
+}
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Pretraga po ID-ju Putnika / Leta: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LetSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Let ID</a>
+                @*@Html.DisplayNameFor(model => model.Let)*@
+            </th>
+            <th>
+                Putnik ID
+                @*@Html.DisplayNameFor(model => model.Putnik)*@
+            </th>
+            <th>
+                Redni Broj Sjedišta
+@*                @Html.DisplayNameFor(model => model.RedniBrojSjedišta)
+*@            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["KlasaSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Klasa</a>
+@*                @Html.DisplayNameFor(model => model.Klasa)
+*@            </th>
+            <th>
+                Ručni Prtljag (<8kg)
+@*                @Html.DisplayNameFor(model => model.RučniPrtljag8kg)
+*@            </th>
+            <th>
+                Koferi (kg)
+@*                @Html.DisplayNameFor(model => model.KoferiKg)
+*@            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LetId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PutnikId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RedniBrojSjedišta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klasa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RučniPrtljag8kg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KoferiKg)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated && (User.IsInRole("admin") || User.IsInRole("user")))
+                {
+                    <a asp-area="" asp-controller="IstorijaLetovaPutnika" asp-action="Details" asp-route-id="@item.PutnikId" asp-route-idd="@item.LetId">Details</a>
+                @*                @Html.ActionLink("Details", "Details",new { /* id=item.PrimaryKey */ })) |
+                *@                 }
+                @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                {
+                    <a asp-area="" asp-controller="IstorijaLetovaPutnika" asp-action="Edit" asp-route-id="@item.PutnikId" asp-route-idd="@item.LetId">Edit</a>
+                @*                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                *@  <a asp-area="" asp-controller="IstorijaLetovaPutnika" asp-action="Delete" asp-route-id="@item.PutnikId" asp-route-idd="@item.LetId"> Delete</a> 
+                @*                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                *@
+                }
+            </td>  
+            </tr>
+}
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

@@ -1,0 +1,94 @@
+﻿@using AvioIndustrija.ViewModels.Komentar;
+@model KomentarVijestiViewModel
+
+<li style="list-style-type:none">
+    <div>
+        <div id="komentarDiv-@Model.KomentarId">
+            <div>
+                <p style="font-weight:bold">
+                    @Model.ImeKorisnika @Model.PrezimeKorisnika
+                </p>
+                <p id="sadrzajKomentara-@Model.KomentarId">@Model.Sadrzaj</p>
+                @* <textarea id="sadrzajKomentara-@Model.KomentarId" readonly style="border:none; outline:none">@Model.Sadrzaj</textarea> *@
+                <div style="margin-bottom:1rem">
+                    <span>
+                        <button class="showFormButton btn btn-outline-primary lvl1komOdgovori" onclick="saveScrollPosition()" data-id="@Model.KomentarId">Odgovori 💬</button>
+                    </span>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin") || User.Identity.IsAuthenticated && User.IsInRole("user") && @ViewBag.UserId == Model.KorisnikId)
+                    {
+                        <span>
+                            <a class="btn btn-outline-danger lvl1komObrisi" onclick="saveScrollPosition()" asp-area="" asp-controller="Vijest" asp-action="ObrisiKomentar" asp-route-id="@Model.KomentarId" asp-route-vijestId="@Model.VijestId">🗑</a>
+                        </span>
+                        <span>
+                            <a href="#" id="editBtn-@Model.KomentarId" class="btn btn-outline-dark" onclick="editcomm(@Model.KomentarId)">🖊</a>
+                        </span>
+
+                    }
+                    <span style="float:right">
+                        <p style="font-style:italic; font-size:small; padding-top:5px; margin-bottom:0">
+                            @Model.Vrijeme
+                        </p>
+                    </span>
+                </div>             
+            </div>
+
+            <div id="formContainer-@Model.KomentarId" class="formContainer hidden">
+                <form asp-action="AddComment" method="post">
+                    <input type="hidden" name="nadKomentar" value="@Model.KomentarId" />
+                    <input asp-for="VijestId" type="hidden" name="vijestId" value="@Model.VijestId" />
+                    <textarea name="sadrzaj" style="width:35%">@@ @Model.ImeKorisnika @Model.PrezimeKorisnika </textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @if (Model.Replies.Any())
+    {
+        <ul id="toggleList-@Model.KomentarId" style="margin-left: 20px; display:none">
+            @foreach (var reply in Model.Replies)
+            {
+                @Html.Partial("_Comment", reply)
+            }
+        </ul>
+        <a id="toggleButton-@Model.KomentarId" onclick="reply_click(@Model.KomentarId)" style="margin-bottom:1rem; color:mediumblue; text-decoration: underline; cursor:pointer;">Prikazi odgovore (@Model.Replies.Count())</a>
+    }
+</li>
+<hr />
+
+@* <script> /* type="text/javascript" */
+    function editcomm(clicked_sadrzaj) {
+        console.log("called")
+        var komentar = document.getElementById('sadrzajKomentara-' + clicked_sadrzaj);
+        if (komentar.style.border === "none" {
+            komentar.style.border = 'solid';
+            komentar.style.outline = 'solid';
+            komentar.removeAttribute('readonly');
+        } else {
+            komentar.style.border = 'none';
+            komentar.style.outline = 'none';
+            komentar.setAttribute('readonly');
+        }
+    }
+</script> *@
+<script>
+    // Function to save the scroll position
+    function saveScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Function to restore the scroll position
+    function restoreScrollPosition() {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, scrollPosition);
+            sessionStorage.removeItem('scrollPosition'); // Optional: remove after restoring
+        }
+    }
+
+    // Save scroll position before the form submission or update
+    document.querySelector(".lvl1komObrisi").addEventListener("click", saveScrollPosition);
+    document.querySelector(".lvl1komOdgovori").addEventListener("click", saveScrollPosition);
+
+    // Restore scroll position when the page loads or updates
+    window.addEventListener("load", restoreScrollPosition);
+</script>
